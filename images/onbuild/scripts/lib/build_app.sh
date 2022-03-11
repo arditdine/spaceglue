@@ -61,8 +61,7 @@ fi
 # download the installer, attempting to use the preferred version, from
 # the install.meteor.com script
 if true; then
-  curl -sL "https://install.meteor.com/?release=${METEOR_RELEASE}" \
-    > /tmp/install_meteor.sh
+  wget --no-check-certificate "https://install.meteor.com/?release=${METEOR_RELEASE}" -O /tmp/install_meteor.sh
 
   if [ -z "${METEOR_RELEASE}" ]; then
     # Read it from the install file.
@@ -94,11 +93,11 @@ meteor_version_app=$(cat .meteor/release)
 echo "  > ${meteor_version_app}"
 
 echo "=> Executing NPM install --production"
-$meteor_bin npm install --production 2>&1 > /dev/null
+NODE_TLS_REJECT_UNAUTHORIZED=0 $meteor_bin npm install --production 2>&1 > /dev/null
 
 echo "=> Executing Meteor Build..."
 
-$meteor_bin build \
+NODE_TLS_REJECT_UNAUTHORIZED=0 $meteor_bin build \
   --directory $build_dir
 
 echo "=> Executing NPM install within Bundle"

@@ -1,5 +1,5 @@
-FROM abernix/spaceglue:builddeps
-MAINTAINER Jesse Rosenberger
+FROM abernix/spaceglue:node-8.9.3-builddeps
+LABEL Ardit Dine
 
 USER root
 WORKDIR /home/node
